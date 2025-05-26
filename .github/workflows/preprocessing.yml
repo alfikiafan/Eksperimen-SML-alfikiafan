@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'preprocessing/personality_dataset_preprocessing/**'
 
 jobs:
   preprocessing:
@@ -27,3 +29,11 @@ jobs:
 
     - name: Run preprocessing script
       run: python preprocessing/automate_alfikiafan.py
+
+    - name: Commit and push preprocessed data
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add preprocessing/personality_dataset_preprocessing/*
+        git commit -m "Update preprocessed data" || echo "No changes to commit"
+        git push "https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref }}
