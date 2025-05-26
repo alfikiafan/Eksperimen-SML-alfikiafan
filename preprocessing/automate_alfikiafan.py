@@ -1,7 +1,7 @@
-import pandas as pd
 import os
 import joblib
 import logging
+import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 
@@ -51,7 +51,12 @@ def preprocess_data(df):
     return X_train, X_test, y_train, y_test, scaler, numerical_cols
 
 def save_artifacts(X_train, X_test, y_train, y_test, scaler, feature_names, output_dir="preprocessing/personality_dataset_preprocessing"):
-    os.makedirs(output_dir, exist_ok=True)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        logger.info(f"Output directory '{output_dir}' created.")
+    else:
+        logger.info(f"Output directory '{output_dir}' already exists.")
+
     logger.info(f"Saving artifacts to: {output_dir}")
 
     joblib.dump(scaler, os.path.join(output_dir, 'scaler.pkl'))
