@@ -16,14 +16,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Miniconda
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.12.7
 
     - name: Install dependencies (manual fallback)
       run: |
-        conda install pandas scikit-learn -y
+        pip install pandas scikit-learn joblib
 
     - name: Run preprocessing script
       run: python preprocessing/automate_alfikiafan.py

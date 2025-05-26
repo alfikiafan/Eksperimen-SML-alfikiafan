@@ -34,9 +34,9 @@ def preprocess_data(df):
 
     logger.info("Encoding categorical variables...")
     le = LabelEncoder()
-    df['Stage_fear'] = le.fit_transform(df['Stage_fear'])
-    df['Drained_after_socializing'] = le.fit_transform(df['Drained_after_socializing'])
-    df['Personality'] = le.fit_transform(df['Personality'])
+    df['Stage_fear'] = LabelEncoder().fit_transform(df['Stage_fear'])
+    df['Drained_after_socializing'] = LabelEncoder().fit_transform(df['Drained_after_socializing'])
+    df['Personality'] = LabelEncoder().fit_transform(df['Personality'])
 
     logger.info("Scaling numerical features...")
     numerical_cols = ['Time_spent_Alone', 'Social_event_attendance', 'Going_outside', 'Friends_circle_size', 'Post_frequency']
@@ -50,7 +50,7 @@ def preprocess_data(df):
 
     return X_train, X_test, y_train, y_test, scaler, numerical_cols
 
-def save_artifacts(X_train, X_test, y_train, y_test, scaler, feature_names, output_dir="artifacts"):
+def save_artifacts(X_train, X_test, y_train, y_test, scaler, feature_names, output_dir="preprocessing/personality_dataset_preprocessing"):
     os.makedirs(output_dir, exist_ok=True)
     logger.info(f"Saving artifacts to: {output_dir}")
 
