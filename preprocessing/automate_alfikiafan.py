@@ -69,7 +69,7 @@ def save_artifacts(X_train, X_test, y_train, y_test, scaler, feature_names, outp
 def main():
     try:
         logger.info("Starting preprocessing pipeline...")
-        data_path = "../personality_dataset_raw.csv"
+        data_path = os.path.join(os.path.dirname(__file__), "..", "personality_dataset_raw.csv")
         df = load_data(data_path)
         X_train, X_test, y_train, y_test, scaler, feature_names = preprocess_data(df)
         save_artifacts(X_train, X_test, y_train, y_test, scaler, feature_names)
